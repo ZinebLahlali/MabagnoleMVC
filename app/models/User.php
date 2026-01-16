@@ -1,6 +1,6 @@
 <?php
   
-  class User
+  class User extends BaseModel
   { private $id_user;
     private $nom;
     private $prenom;
@@ -8,7 +8,7 @@
     private $password_hash;
 
 
-    public function __construct($id_user, $nom, $prenom, $email,$password_hash)
+    public function __construct(PDO $pdo,$id_user, $nom, $prenom, $email,$password_hash)
     {      $this->id_user = $id_user;
            $this->nom = $nom;
            $this->prenom= $prenom;
@@ -50,6 +50,12 @@
         }
         public function setPassword($password_hash){
             $this->password_hash= $password_hash;
+        }
+
+        public function login($email)
+        {      $stmt = $pdo->prepare("SELECT * FROM clients WHERE email = ?");
+                $stmt->execute([$email]);
+                $user = $stmt->fetch(PDO::FETCH_CLASS, 'User');
         }
 
 

@@ -1,15 +1,18 @@
 <?php
-  class Database {
-    private static ?PDO $instance = null;
+namespace config;
+use PDO;
 
-    public static function getInstance(): PDO {
-        if(!self::$instance) {
+  class Database {
+    private static $pdo = null;
+
+    public static function getInstance(){
+        if(!self::$pdo) {
             $dsn = "mysql:host=localhost;dbname=mabagnole";
-            self::$instance = new PDO($dsn, 'root', '',[
+            self::$pdo = new PDO($dsn, 'root', '',[
                 PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
             ]);
         }
-        return self::$instance;  
+        return self::$pdo;  
     }
   }
 ?>

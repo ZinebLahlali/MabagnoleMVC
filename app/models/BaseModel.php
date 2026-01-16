@@ -1,13 +1,17 @@
 <?php
+  namespace app\models;
+  use config\database;
+
   abstract class BaseModel{
-    protected $pdo;
+    protected static $db;
 
-    protected function __construct(PDO $pdo) {
-        $this->pdo = $pdo;
+    public function __construct()
+    {
+        self::$db = Database::getInstance();
     }
-    abstract public function save(): bool;
-    abstract public static function find(int $id);
 
+    abstract public function save();
+    abstract public static function find(int $id);
   }
  
 ?>

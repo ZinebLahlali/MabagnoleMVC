@@ -1,12 +1,17 @@
 <?php
- namespace App\controllers;
+ namespace app\controllers;
 
- class BaseController
+  abstract class BaseController
  {
-     public function index()
+
+     static function render(string $view, array $data = []): void 
      {
-        require_once 
+        extract($data);
+        require "app/view/layout/header.php";
+        require "app/view/categories/$view.php";
+        require "app/view/layout/footer.php";
      }
+
  }
 
 
